@@ -20,10 +20,12 @@ battery_conservation_mode_path = ''
 # The percentage above which the battery is considered fully charged in conservation mode
 battery_conservation_mode_full_percent = 55
 
-# Dictionary of audio sink/source name SUFFIXES to abbreviations
+# Dictionary of audio sink/source name suffixes to abbreviations
 volume_source_sink_abbreviations = {
     'analog-stereo': 'A',  # Internal speaker
     'hdmi-stereo': 'H',  # External (HDMI) speaker
+    'a2dp_sink': 'B',  # Bluetooth
+    'headset_head_unit': 'B',  # Bluetooth
 }
 
 # Print audio sink/source names with:
