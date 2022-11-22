@@ -12,17 +12,22 @@ It also updates network, audio volume, and battery information asynchronously, r
 status.py is written for Python 3 and depends on the following Python modules:
 
 - apscheduler
-- pulsectl-asyncio
 - pydbus
 - xlib
+- asyncio-glib
+- pulsectl-asyncio
 
 apscheduler, pydbus, and xlib are available in Ubuntu's package repositories:
 
-```sudo apt install python3-apscheduler python3-pydbus python3-xlib```
+```bash
+sudo apt install python3-apscheduler python3-pydbus python3-xlib
+```
 
-pulsectl-asyncio is available from the Python package index:
+asyncio-glib and pulsectl-asyncio are available from the Python package index:
 
-```pip3 install pulsectl-asyncio```
+```bash
+pip3 install asyncio-glib pulsectl-asyncio
+```
 
 ### statuscmd
 
