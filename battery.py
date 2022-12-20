@@ -85,16 +85,6 @@ class Battery:
         # Get battery charge percent
         battery_percent = round(self._device_proxy.Percentage)
 
-        # Handle battery conservation mode
-        if config.battery_conservation_mode_path and state != UPOWER_STATE_FULLY_CHARGED:
-            conservation_mode = subprocess.run(
-                ['cat', config.battery_conservation_mode_path], capture_output=True,
-                text=True, timeout=1.).stdout[:-1] == '1'
-
-            if conservation_mode and battery_percent >= config.battery_conservation_mode_full_percent:
-                state = UPOWER_STATE_FULLY_CHARGED
-                time = ''
-
         # Format status text
         self.text = f'{self._signal_text}bat {get_state_abbreviation(state)}{str(battery_percent)}%{time}{self._spacer}'
 

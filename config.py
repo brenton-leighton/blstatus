@@ -13,13 +13,6 @@ memory_interval = 2.
 # Enable using nvidia-smi to get GPU memory usage
 memory_enable_gpu = False
 
-# Path to a file that indicates that battery conservation mode is active or not
-# Use a blank string to disable checking for conservation mode
-battery_conservation_mode_path = ''
-
-# The percentage above which the battery is considered fully charged in conservation mode
-battery_conservation_mode_full_percent = 55
-
 # Dictionary of audio sink/source name suffixes to abbreviations
 volume_source_sink_abbreviations = {
     'analog-stereo': 'A',  # Internal speaker
