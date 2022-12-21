@@ -88,7 +88,7 @@ class Battery:
         # Format status text
         self.text = f'{self._signal_text}bat {get_state_abbreviation(state)}{str(battery_percent)}%{time}{self._spacer}'
 
-    def _update_and_publish(self, values='', sep='', end=''):
+    def _update_and_publish(self, *params):
         """Callback for the PropertiesChanged signal of the battery device proxy"""
         self.update_text()  # Update battery status text
         self._publish_status()  # Publish full status text

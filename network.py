@@ -120,7 +120,7 @@ class Network:
                                                 self._spacer)
                 self.text += text
 
-    def _callback_nm(self, values='', sep='', end=''):
+    def _callback_nm(self, *params):
         """Callback for the PropertiesChanged signal of the NetworkManager proxy"""
 
         # Don't update if going to sleep
@@ -128,12 +128,12 @@ class Network:
             return
 
         # If active connections have changed
-        if 'ActiveConnections' in values:
+        if 'ActiveConnections' in params[1]:
             # Update active connection proxies, device proxies, and status text
             self.update_proxies_and_text()
             self._publish_status()
 
-    def _callback_active_connection(self, values='', sep='', end=''):
+    def _callback_active_connection(self, *params):
         """Callback for the PropertiesChanged signal of the active connection proxies"""
 
         # Don't update if going to sleep
@@ -141,7 +141,7 @@ class Network:
             return
 
         # If the IPv4 address has changed
-        if 'Ip4Config' in values and values['Ip4Config'] != '/':
+        if 'Ip4Config' in params[1] and params[1]['Ip4Config'] != '/':
             # Update device proxies and status text
             self._update_device_proxies_and_text()
             self._publish_status()
