@@ -18,7 +18,7 @@ volume_source_sink_abbreviations = {
     'analog-stereo': 'A',  # Internal speaker
     'hdmi-stereo': 'H',  # External (HDMI) speaker
     'a2dp_sink': 'B',  # Bluetooth
-    'headset_head_unit': 'B',  # Bluetooth
+    'handsfree_head_unit': 'B',  # Bluetooth
 }
 
 # Print audio sink/source names with:
