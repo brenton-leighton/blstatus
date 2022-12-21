@@ -29,7 +29,7 @@ date_time = None
 
 scheduler = BackgroundScheduler()
 asyncio.set_event_loop_policy(asyncio_glib.GLibEventLoopPolicy())
-loop = asyncio.get_event_loop()
+loop = asyncio.new_event_loop()
 system_bus = SystemBus()
 
 login1_proxy = None
