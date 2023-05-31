@@ -50,6 +50,8 @@ class Memory:
 
             except FileNotFoundError:
                 self.gpu_text = ''
+            except ValueError:
+                self.gpu_text = ''
 
     def update_and_publish(self):
         """Callback for the scheduler job"""
