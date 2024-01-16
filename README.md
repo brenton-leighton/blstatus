@@ -3,7 +3,7 @@
 A status monitor for [DWM](https://dwm.suckless.org/) (or any window manager that uses WM_NAME to fill a status bar).
 Compared to [slstatus](https://tools.suckless.org/slstatus/), blstatus is capable of displaying more information, and it also updates network, audio volume, and battery information asynchronously, rather than using polling.
 
-![Example status bar](status_bar.png "Example status bar")
+![Example status_bar](https://github.com/brenton-leighton/blstatus/assets/12228142/0365ec84-96be-4532-a193-5c8ddba88a34)
 
 ## Dependencies
 
