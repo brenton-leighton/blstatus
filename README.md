@@ -1,15 +1,13 @@
-# status.py
+# blstatus
 
-A status monitor for [DWM](https://dwm.suckless.org/) (or any window manager that uses WM_NAME to fill a status bar)
-written in Python.
-Compared to [slstatus](https://tools.suckless.org/slstatus/), status.py is capable of displaying more information.
-It also updates network, audio volume, and battery information asynchronously, rather than using polling.
+A status monitor for [DWM](https://dwm.suckless.org/) (or any window manager that uses WM_NAME to fill a status bar).
+Compared to [slstatus](https://tools.suckless.org/slstatus/), blstatus is capable of displaying more information, and it also updates network, audio volume, and battery information asynchronously, rather than using polling.
 
 ![Example status bar](status_bar.png "Example status bar")
 
 ## Dependencies
 
-status.py is written for Python 3 and depends on the following Python modules:
+blstatus is written for Python 3 and depends on the following Python modules:
 
 - apscheduler
 - pydbus
@@ -31,7 +29,7 @@ pip3 install asyncio-glib pulsectl-asyncio
 
 ### statuscmd
 
-status.py also supports signals for [statuscmd](https://dwm.suckless.org/patches/statuscmd/), which can be disabled in
+blstatus also supports signals for [statuscmd](https://dwm.suckless.org/patches/statuscmd/), which can be disabled in
 config.py.
 
 ## Configuration
