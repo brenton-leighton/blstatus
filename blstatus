@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Directory for this script
+SCRIPT_DIR=$(dirname $(realpath "$0"))
+
+# Activate the virtual environment
+source ${SCRIPT_DIR}/.venv/bin/activate
+
+if [ $? != 0 ]; then
+  echo "Virtual environment not found, please run setup.sh"
+  exit
+fi
+
+# Run blstatus.py
+${SCRIPT_DIR}/blstatus.py

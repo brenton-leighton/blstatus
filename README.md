@@ -7,30 +7,32 @@ Compared to [slstatus](https://tools.suckless.org/slstatus/), blstatus is capabl
 
 ## Dependencies
 
-blstatus is written for Python 3 and depends on the following Python modules:
+blstatus is written for Python 3 and has the following dependencies:
 
-- apscheduler
-- pydbus
-- xlib
-- asyncio-glib
-- pulsectl-asyncio
+- APT
+  - python3-pip
+  - python3-venv
+  - libcairo2-dev
+  - libgirepository1.0-dev
+- Python modules
+  - apscheduler
+  - asyncio-glib
+  - pulsectl-asyncio
+  - pydbus
+  - xlib
 
-apscheduler, pydbus, and xlib are available in Ubuntu's package repositories:
+The APT dependencies can be installed with:
 
 ```bash
-sudo apt install python3-apscheduler python3-pydbus python3-xlib
+sudo apt install python3-pip python3-venv libcairo2-dev libgirepository1.0-dev
 ```
 
-asyncio-glib and pulsectl-asyncio are available from the Python package index:
+The required Python modules can be installed into a virtual environment with the `setup.sh` script, and blstatus can then be run in the virtual environment with the `blstatus` script:
 
 ```bash
-pip3 install asyncio-glib pulsectl-asyncio
+./setup.sh
+./blstatus
 ```
-
-### statuscmd
-
-blstatus also supports signals for [statuscmd](https://dwm.suckless.org/patches/statuscmd/), which can be disabled in
-config.py.
 
 ## Configuration
 
