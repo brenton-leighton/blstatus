@@ -5,6 +5,7 @@ from contextlib import suppress
 import pulsectl_asyncio
 
 import config
+import inhibit
 
 
 def get_abbreviation(name: str) -> str:
@@ -51,6 +52,11 @@ class Volume:
 
     async def _listen(self, pulse: pulsectl_asyncio.PulseAsync):
         async for event in pulse.subscribe_events('server', 'sink', 'source'):
+
+            # Don't update if going to sleep
+            if inhibit.value:
+              continue
+
             # Ignore anything but change events
             if event.t != 'change':
                 continue
