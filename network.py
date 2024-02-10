@@ -1,3 +1,4 @@
+from time import sleep
 from typing import Callable
 from pydbus.bus import Bus
 
@@ -95,9 +96,9 @@ class Network:
 
             ip4_config_proxy = self._system_bus.get('org.freedesktop.NetworkManager', device_proxy.Ip4Config)
 
-            # Continue if the address isn't valid
-            if len(ip4_config_proxy.AddressData) == 0:
-              continue
+            # Wait until the address is valid
+            while (len(ip4_config_proxy.AddressData) == 0):
+              sleep(0.1)
 
             address = ip4_config_proxy.AddressData[0]["address"]
 
