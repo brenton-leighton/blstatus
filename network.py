@@ -95,17 +95,23 @@ class Network:
 
             ip4_config_proxy = self._system_bus.get('org.freedesktop.NetworkManager', device_proxy.Ip4Config)
 
+            # Continue if the address isn't valid
+            if len(ip4_config_proxy.AddressData) == 0:
+              continue
+
+            address = ip4_config_proxy.AddressData[0]["address"]
+
             if device_proxy.DeviceType == NM_DEVICE_TYPE_ETHERNET:
                 if device_proxy.Speed == 0:
                     text = '{}{}: {}{}'.format(self._ethernet_signal_text,
                                                device_proxy.Interface,
-                                               ip4_config_proxy.AddressData[0]["address"],
+                                               address,
                                                self._spacer)
                     self.text += text
 
                 else:
                     text = '{}{}: {} ({}){}'.format(self._ethernet_signal_text, device_proxy.Interface,
-                                                    ip4_config_proxy.AddressData[0]["address"],
+                                                    address,
                                                     format_bps(device_proxy.Speed),
                                                     self._spacer)
                     self.text += text
@@ -115,7 +121,7 @@ class Network:
                                                                  device_proxy.ActiveAccessPoint)
 
                 text = '{}{}: {} ({}){}'.format(self._wifi_signal_text, device_proxy.Interface,
-                                                ip4_config_proxy.AddressData[0]["address"],
+                                                address,
                                                 format_ssid(active_access_point_proxy.Ssid),
                                                 self._spacer)
                 self.text += text
