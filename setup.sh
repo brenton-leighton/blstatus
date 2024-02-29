@@ -4,7 +4,7 @@
 SCRIPT_DIR=$(dirname $(realpath "$0"))
 
 # Check that required APT packages are installed
-PACKAGES=("python3-pip" "python3-venv" "libcairo2-dev" "libgirepository1.0-dev")
+PACKAGES=("python3-dev" "python3-pip" "python3-venv" "libcairo2-dev" "libgirepository1.0-dev")
 
 for PACKAGE in ${PACKAGES[@]}; do
   dpkg -s $PACKAGE 1> /dev/null 2> /dev/null

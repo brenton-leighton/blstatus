@@ -10,6 +10,7 @@ Compared to [slstatus](https://tools.suckless.org/slstatus/), blstatus is capabl
 blstatus is written for Python 3 and has the following dependencies:
 
 - APT
+  - python3-dev
   - python3-pip
   - python3-venv
   - libcairo2-dev
