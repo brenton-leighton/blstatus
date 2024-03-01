@@ -5,75 +5,59 @@ Compared to [slstatus](https://tools.suckless.org/slstatus/), blstatus is capabl
 
 ![Example status_bar](https://github.com/brenton-leighton/blstatus/assets/12228142/0365ec84-96be-4532-a193-5c8ddba88a34)
 
-## Dependencies
+## Installation
 
-blstatus is written for Python 3 and has the following dependencies:
+blstatus has the following dependencies:
 
-- APT
-  - python3-dev
-  - python3-pip
-  - python3-venv
-  - libcairo2-dev
-  - libgirepository1.0-dev
-- Python modules
-  - apscheduler
-  - asyncio-glib
-  - pulsectl-asyncio
-  - pydbus
-  - xlib
+- apscheduler
+- asyncio-glib
+- pulsectl-asyncio
+- pydbus
+- xlib
 
-The APT dependencies can be installed with:
+The package can be installed using [pipx](https://pipx.pypa.io/stable/installation/):
 
 ```bash
-sudo apt install python3-pip python3-venv libcairo2-dev libgirepository1.0-dev
-```
-
-The required Python modules can be installed into a virtual environment with the `setup.sh` script, and blstatus can then be run in the virtual environment with the `blstatus` script:
-
-```bash
-./setup.sh
-./blstatus
+pipx install blstatus
 ```
 
 ## Configuration
 
-config.py has a number of variables for configuration.
+blstatus can be configured with a file located at `~/.config/blstatus/config.ini`, e.g.
 
-### `spacer`
+```ini
+[general]
+# Text to use between components
+# Needs to be quoted if spaces (or a quote character) are used
+spacer = ' | '
 
-The text that's placed between the output of different modules.
+# Enable if using statuscmd (https://dwm.suckless.org/patches/statuscmd/)
+enable_signal_text = false
 
-### `enable_signal_text`
+[date_time]
+# Format string for the date command
+# Must be quoted and % must be doubled
+format = '+"%%Y-%%m-%%d %%A %%-I:%%M %%P"'
 
-Allows for disabling the signal text strings used for [statuscmd](https://dwm.suckless.org/patches/statuscmd/).
+[memory]
+# Interval in seconds between updating memory status
+interval = 2.0
 
-### `date_time_format`
+# Enable using nvidia-smi to get GPU memory usage
+enable_gpu = false
 
-The format string to pass to the `date` command.
+[volume]
+# Dictionary to map a PulseAudio sink/source name to an abbreviation
+# If the end of a PulseAudio device name matches a key the value will be used
+# If a PulseAudio device name doesn't match anything in the dictionary, source_sink_unknown_abbreviation is used
+# Must be a single line
+source_sink_abbreviations = { 'analog-stereo': 'A', 'hdmi-stereo': 'H', 'a2dp_sink': 'B', 'handsfree_head_unit': 'B' }
 
-### `memory_interval`
+# Abbreviation to use if a sink/source name isn't known
+source_sink_unknown_abbreviation = 'U'
+```
 
-The interval in seconds between updating memory status.
-
-### `memory_enable_gpu`
-
-Allows for disabling the GPU memory status, which uses `nvidia-smi`.
-
-### `battery_conservation_mode_path`
-
-A path to a file that indicates if battery conservation mode is active.
-Use an empty string to disable checking for battery conservation mode.
-
-### `battery_conservation_mode_full_percent`
-
-The percentage above which the battery is considered full in battery conservation mode.
-
-### `volume_source_sink_abbreviations`
-
-A [Python dictionary](https://docs.python.org/3/tutorial/datastructures.html#dictionaries) that maps the suffix of a
-Pulse sink/source name to an abbreviation, e.g. `'analog-stereo': 'I'`.
-
-The sink/source names can be printed with:
+To determine the key part of `source_sink_abbreviations`, PulseAudio sink/source names can be printed with:
 
 ```python
 import pulsectl
@@ -82,7 +66,3 @@ pulse = pulsectl.Pulse()
 print([sink.name for sink in pulse.sink_list()])
 print([source.name for source in pulse.source_list()])
 ```
-
-### `volume_source_sink_unknown_abbreviation`
-
-The abbreviation to use if a sink/source name doesn't match anything in `volume_source_sink_abbreviations`.

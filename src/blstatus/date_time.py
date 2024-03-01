@@ -1,8 +1,8 @@
 from typing import Callable
 import subprocess
 
-import config
-import inhibit
+import blstatus.config as config
+import blstatus.inhibit as inhibit
 
 
 class DateTime:

@@ -1,5 +1,0 @@
-apscheduler
-asyncio-glib
-pulsectl-asyncio
-pydbus
-xlib
