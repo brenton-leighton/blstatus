@@ -72,6 +72,9 @@ if __name__ == '__main__':
     login1_proxy = system_bus.get('org.freedesktop.login1')
     login1_proxy.PrepareForSleep.connect(prepare_for_sleep)
 
+    # Load configuration from file if it exists
+    config.load()
+
     # The signal text arguments should be empty if not using statuscmd
     network = Network(system_bus, publish, '\x01', '\x02', config.spacer)
     memory = Memory(publish, '\x03', '\x04', config.spacer)
