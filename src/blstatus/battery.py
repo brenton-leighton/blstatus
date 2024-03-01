@@ -2,7 +2,7 @@ from typing import Callable
 import subprocess
 from pydbus.bus import Bus
 
-import config
+import blstatus.config as config
 
 UPOWER_TYPE_BATTERY = 2
 UPOWER_STATE_CHARGING = 1

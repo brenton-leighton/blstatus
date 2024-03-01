@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blstatus"
+version = "0.1"
+description = "A status monitor for DWM or other window managers that use WM_NAME"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+keywords = ["dwm"]
+
+authors = [
+  {name = "Brenton Leighton", email = "12228142+brenton-leighton@users.noreply.github.com" }
+]
+
+maintainers = [
+  {name = "Brenton Leighton", email = "12228142+brenton-leighton@users.noreply.github.com" }
+]
+
+dependencies = [
+  "apscheduler",
+  "asyncio-glib",
+  "pulsectl-asyncio",
+  "pydbus",
+  "xlib",
+]
+
+[project.urls]
+Homepage = "https://github.com/brenton-leighton/blstatus"
+
+[project.scripts]
+blstatus = "blstatus.blstatus:main"

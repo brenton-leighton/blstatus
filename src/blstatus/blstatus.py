@@ -7,14 +7,14 @@ import Xlib.display
 from apscheduler.schedulers.background import BackgroundScheduler
 from pydbus import SystemBus
 
-import config
-import inhibit
+import blstatus.config as config
+import blstatus.inhibit as inhibit
 
-from network import Network
-from memory import Memory
-from volume import Volume
-from battery import Battery
-from date_time import DateTime
+from blstatus.network import Network
+from blstatus.memory import Memory
+from blstatus.volume import Volume
+from blstatus.battery import Battery
+from blstatus.date_time import DateTime
 
 lock = threading.Lock()
 
@@ -36,6 +36,9 @@ login1_proxy = None
 
 
 def prepare_for_sleep(sleeping):
+
+    global battery, date_time, network, inhibit, scheduler
+
     if not sleeping:
         # Resuming
         battery.update_text()
@@ -51,6 +54,9 @@ def prepare_for_sleep(sleeping):
 
 
 def publish():
+
+    global lock, network, memory, volume, battery, date_time, root, display
+
     """Publish status text to root window name"""
     if lock.acquire(blocking=False):
         status_text = ' ' \
@@ -68,7 +74,10 @@ def publish():
         lock.release()
 
 
-if __name__ == '__main__':
+def main():
+
+    global login1_proxy, config, network, memory, volume, battery, date_time, scheduler, loop
+
     login1_proxy = system_bus.get('org.freedesktop.login1')
     login1_proxy.PrepareForSleep.connect(prepare_for_sleep)
 
@@ -93,3 +102,7 @@ if __name__ == '__main__':
     scheduler.start()
 
     loop.run_until_complete(volume.run())
+
+
+if __name__ == '__main__':
+    main()

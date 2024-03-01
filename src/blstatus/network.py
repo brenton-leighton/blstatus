@@ -2,8 +2,8 @@ from time import sleep
 from typing import Callable
 from pydbus.bus import Bus
 
-import config
-import inhibit
+import blstatus.config as config
+import blstatus.inhibit as inhibit
 
 NM_DEVICE_TYPE_ETHERNET = 1
 NM_DEVICE_TYPE_WIFI = 2
@@ -70,6 +70,8 @@ class Network:
                 active_connection_proxy = self._system_bus.get('org.freedesktop.NetworkManager', active_connection)
             except KeyError:
                 continue
+
+            global active_connection_types
 
             if active_connection_proxy.Type in active_connection_types:
 
