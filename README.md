@@ -9,15 +9,22 @@ Compared to [slstatus](https://tools.suckless.org/slstatus/), blstatus is capabl
 
 blstatus has the following dependencies:
 
+- python3-dev
+- libcairo2-dev
+- libgirepository1.0-dev
+
+And the following dependencies available on PyPI:
+
 - apscheduler
 - asyncio-glib
 - pulsectl-asyncio
 - pydbus
 - xlib
 
-The package can be installed using [pipx](https://pipx.pypa.io/stable/installation/):
+The package can be installed using [pipx](https://pipx.pypa.io/stable/installation/), e.g.:
 
 ```bash
+sudo apt install pipx python3-dev libcairo2-dev libgirepository1.0-dev
 pipx install blstatus
 ```
 
