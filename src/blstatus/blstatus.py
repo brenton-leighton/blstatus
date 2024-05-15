@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import logging
 import threading
 import asyncio
 import asyncio_glib
@@ -76,32 +77,42 @@ def publish():
 
 def main():
 
-    global login1_proxy, config, network, memory, volume, battery, date_time, scheduler, loop
+    logger = logging.getLogger(__name__)
+    logging.basicConfig(filename='/home/brenton/blstatus.log', encoding='utf-8', level=logging.DEBUG)
 
-    login1_proxy = system_bus.get('org.freedesktop.login1')
-    login1_proxy.PrepareForSleep.connect(prepare_for_sleep)
+    logger.debug('Starting blstatus')
 
-    # Load configuration from file if it exists
-    config.load()
+    try:
 
-    # The signal text arguments should be empty if not using statuscmd
-    network = Network(system_bus, publish, '\x01', '\x02', config.spacer)
-    memory = Memory(publish, '\x03', '\x04', config.spacer)
-    volume = Volume(loop, publish, '\x05', '\x06', config.spacer)
-    battery = Battery(system_bus, publish, '\x07', config.spacer)
-    date_time = DateTime(publish, '\x08')
+        global login1_proxy, config, network, memory, volume, battery, date_time, scheduler, loop
 
-    # Update memory every 2 seconds
-    scheduler.add_job(memory.update_and_publish, 'interval', seconds=config.memory_interval)
+        login1_proxy = system_bus.get('org.freedesktop.login1')
+        login1_proxy.PrepareForSleep.connect(prepare_for_sleep)
 
-    # Update date_time on every minute
-    scheduler.add_job(date_time.update_and_publish, 'cron', second=0)
+        # Load configuration from file if it exists
+        config.load()
 
-    publish()
+        # The signal text arguments should be empty if not using statuscmd
+        network = Network(system_bus, publish, '\x01', '\x02', config.spacer)
+        memory = Memory(publish, '\x03', '\x04', config.spacer)
+        volume = Volume(loop, publish, '\x05', '\x06', config.spacer)
+        battery = Battery(system_bus, publish, '\x07', config.spacer)
+        date_time = DateTime(publish, '\x08')
 
-    scheduler.start()
+        # Update memory every 2 seconds
+        scheduler.add_job(memory.update_and_publish, 'interval', seconds=config.memory_interval)
 
-    loop.run_until_complete(volume.run())
+        # Update date_time on every minute
+        scheduler.add_job(date_time.update_and_publish, 'cron', second=0)
+
+        publish()
+
+        scheduler.start()
+
+        loop.run_until_complete(volume.run())
+
+    except:
+      logging.exception("Exception")
 
 
 if __name__ == '__main__':
