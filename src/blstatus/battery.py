@@ -42,10 +42,10 @@ class Battery:
     _device_proxy = None
     text = ''
 
-    def __init__(self, system_bus: Bus, publish_status: Callable[[], None], signal_text='', spacer=''):
+    def __init__(self, system_bus: Bus, publish_status: Callable[[], None], spacer=''):
 
         self._publish_status = publish_status  # Function to update the full status text
-        self._signal_text = signal_text if config.enable_signal_text else ''  # statuscmd signal text
+        self._signal_text = config.battery_signal_text if config.enable_signal_text else ''  # statuscmd signal text
         self._spacer = spacer  # Spacer text added after status
         self._system_bus = system_bus
 

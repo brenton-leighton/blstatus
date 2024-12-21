@@ -25,11 +25,11 @@ class Volume:
     sink_text = '- / '
     source_text = '- | '
 
-    def __init__(self, loop, publish_status: Callable[[], None], sink_signal_text='', source_signal_text='', spacer=''):
+    def __init__(self, loop, publish_status: Callable[[], None], spacer=''):
         self._loop = loop
         self._publish_status = publish_status
-        self._sink_signal_text = sink_signal_text if config.enable_signal_text else ''  # statuscmd signal text
-        self._source_signal_text = source_signal_text if config.enable_signal_text else ''
+        self._sink_signal_text = config.volume_sink_signal_text if config.enable_signal_text else ''
+        self._source_signal_text = config.volume_source_signal_text if config.enable_signal_text else ''
         self._spacer = spacer
 
     def _update_sink_text(self, sink):

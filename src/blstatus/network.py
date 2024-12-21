@@ -43,13 +43,11 @@ class Network:
     def __init__(self,
                  system_bus: Bus,
                  publish_status: Callable[[], None],
-                 wifi_signal_text='',
-                 ethernet_signal_text='',
                  spacer=''):
 
         self._publish_status = publish_status
-        self._wifi_signal_text = wifi_signal_text if config.enable_signal_text else ''  # statuscmd signal text
-        self._ethernet_signal_text = ethernet_signal_text if config.enable_signal_text else ''
+        self._wifi_signal_text = config.network_wifi_signal_text if config.enable_signal_text else ''
+        self._ethernet_signal_text = config.network_ethernet_signal_text if config.enable_signal_text else ''
         self._spacer = spacer
         self._system_bus = system_bus
 

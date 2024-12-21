@@ -85,11 +85,11 @@ def main():
     config.load()
 
     # The signal text arguments should be empty if not using statuscmd
-    network = Network(system_bus, publish, '\x01', '\x02', config.spacer)
-    memory = Memory(publish, '\x03', '\x04', config.spacer)
-    volume = Volume(loop, publish, '\x05', '\x06', config.spacer)
-    battery = Battery(system_bus, publish, '\x07', config.spacer)
-    date_time = DateTime(publish, '\x08')
+    network = Network(system_bus, publish, config.spacer)
+    memory = Memory(publish, config.spacer)
+    volume = Volume(loop, publish, config.spacer)
+    battery = Battery(system_bus, publish, config.spacer)
+    date_time = DateTime(publish, ' ')
 
     # Update memory every 2 seconds
     scheduler.add_job(memory.update_and_publish, 'interval', seconds=config.memory_interval)

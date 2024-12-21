@@ -10,14 +10,22 @@ spacer = ' | '
 # Disable if not using statuscmd
 enable_signal_text = False
 
-# Format string for the date command
-date_time_format = '+\"%Y-%m-%d %A %-I:%M %P\"'
+# \x01 to \x04 could be used by statuscolors
+
+network_wifi_signal_text = '\x05'
+network_ethernet_signal_text = '\x06'
+
+memory_sys_signal_text = '\x07'
+memory_gpu_signal_text = '\x08'
 
 # Interval in seconds between updating memory status
 memory_interval = 2.
 
 # Enable using nvidia-smi to get GPU memory usage
 memory_enable_gpu = False
+
+volume_sink_signal_text = '\x09'
+volume_source_signal_text = '\x0a'
 
 # Dictionary of audio sink/source name suffixes to abbreviations
 volume_source_sink_abbreviations = {
@@ -35,6 +43,12 @@ volume_source_sink_abbreviations = {
 
 # Abbreviation to use if a sink/source name suffix isn't found
 volume_source_sink_unknown_abbreviation = 'U'
+
+battery_signal_text = '\x0b'
+
+# Format string for the date command
+date_time_signal_text = '\x0c'
+date_time_format = '+\"%Y-%m-%d %A %-I:%M %P\"'
 
 
 # Remove first or last character(s) if they are quotes
@@ -70,12 +84,24 @@ def load():
             global enable_signal_text
             enable_signal_text = _config['general'].getboolean('enable_signal_text')
 
-    if 'date_time' in _config:
-        if 'format' in _config['date_time']:
-            global date_time_format
-            date_time_format = remove_quotes(_config['date_time']['format'])
+    if 'network' in _config:
+        if 'wifi_signal_text' in  _config['network']:
+            global network_wifi_signal_text
+            network_wifi_signal_text = remove_quotes(_config['network']['wifi_signal_text'])
+
+        if 'ethernet_signal_text' in  _config['network']:
+            global network_ethernet_signal_text
+            network_ethernet_signal_text = remove_quotes(_config['network']['ethernet_signal_text'])
 
     if 'memory' in _config:
+        if 'sys_signal_text' in _config['memory']:
+            global memory_sys_signal_text
+            memory_sys_signal_text = remove_quotes(_config['memory']['sys_signal_text'])
+
+        if 'gpu_signal_text' in _config['memory']:
+            global memory_gpu_signal_text
+            memory_gpu_signal_text = remove_quotes(_config['memory']['gpu_signal_text'])
+
         if 'interval' in _config['memory']:
             global memory_interval
             memory_interval = _config['memory'].getfloat('interval')
@@ -85,6 +111,14 @@ def load():
             memory_enable_gpu = _config['memory'].getboolean('enable_gpu')
 
     if 'volume' in _config:
+        if 'sink_signal_text' in _config['volume']:
+            global volume_sink_signal_text
+            volume_sink_signal_text = remove_quotes(_config['memory']['sink_signal_text'])
+
+        if 'source_signal_text' in _config['volume']:
+            global volume_source_signal_text
+            volume_source_signal_text = remove_quotes(_config['memory']['source_signal_text'])
+
         if 'source_sink_abbreviations' in _config['volume']:
             global volume_source_sink_abbreviations
             dict_string = _config['volume']['source_sink_abbreviations']
@@ -98,3 +132,17 @@ def load():
         if 'source_sink_unknown_abbreviation' in _config['volume']:
             global volume_source_sink_unknown_abbreviation
             volume_source_sink_unknown_abbreviation = remove_quotes(_config['volume']['source_sink_unknown_abbreviation'])
+
+    if 'battery' in _config:
+        if 'signal_text' in _config['battery']:
+            global battery_signal_text
+            battery_signal_text = _config['battery']['signal_text']
+
+    if 'date_time' in _config:
+        if 'signal_text' in _config['date_time']:
+            global date_time_signal_text
+            date_time_signal_text = _config['battery']['date_time']
+
+        if 'format' in _config['date_time']:
+            global date_time_format
+            date_time_format = remove_quotes(_config['date_time']['format'])

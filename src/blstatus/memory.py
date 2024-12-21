@@ -20,10 +20,10 @@ class Memory:
     sys_text = ''
     gpu_text = ''
 
-    def __init__(self, publish_status: Callable[[], None], sys_signal_text='', gpu_signal_text='', spacer=''):
+    def __init__(self, publish_status: Callable[[], None], spacer=''):
         self._publish_status = publish_status
-        self._sys_signal_text = sys_signal_text if config.enable_signal_text else ''  # statuscmd signal text
-        self._gpu_signal_text = gpu_signal_text if config.enable_signal_text else ''
+        self._sys_signal_text = config.memory_sys_signal_text if config.enable_signal_text else ''  # statuscmd signal text
+        self._gpu_signal_text = config.memory_gpu_signal_text if config.enable_signal_text else ''
         self._spacer = spacer
         self._update_text()
 

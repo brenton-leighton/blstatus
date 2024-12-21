@@ -11,9 +11,9 @@ class DateTime:
     _spacer = ''
     text = ''
 
-    def __init__(self, publish_status: Callable[[], None], signal_text='', spacer=''):
+    def __init__(self, publish_status: Callable[[], None], spacer=''):
         self._publish_status = publish_status
-        self._signal_text = signal_text if config.enable_signal_text else ''  # statuscmd signal text
+        self._signal_text = config.date_time_signal_text if config.enable_signal_text else ''  # statuscmd signal text
         self._spacer = spacer
         self.update_text()
 
