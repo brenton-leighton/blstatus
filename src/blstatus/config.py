@@ -12,11 +12,11 @@ enable_signal_text = False
 
 # \x01 to \x04 could be used by statuscolors
 
-network_wifi_signal_text = '\x05'
-network_ethernet_signal_text = '\x06'
+network_wifi_signal_text = '\x01'
+network_ethernet_signal_text = '\x02'
 
-memory_sys_signal_text = '\x07'
-memory_gpu_signal_text = '\x08'
+memory_sys_signal_text = '\x03'
+memory_gpu_signal_text = '\x04'
 
 # Interval in seconds between updating memory status
 memory_interval = 2.
@@ -24,8 +24,8 @@ memory_interval = 2.
 # Enable using nvidia-smi to get GPU memory usage
 memory_enable_gpu = False
 
-volume_sink_signal_text = '\x09'
-volume_source_signal_text = '\x0a'
+volume_sink_signal_text = '\x05'
+volume_source_signal_text = '\x06'
 
 # Dictionary of audio sink/source name suffixes to abbreviations
 volume_source_sink_abbreviations = {
@@ -44,10 +44,10 @@ volume_source_sink_abbreviations = {
 # Abbreviation to use if a sink/source name suffix isn't found
 volume_source_sink_unknown_abbreviation = 'U'
 
-battery_signal_text = '\x0b'
+battery_signal_text = '\x07'
 
 # Format string for the date command
-date_time_signal_text = '\x0c'
+date_time_signal_text = '\x08'
 date_time_format = '+\"%Y-%m-%d %A %-I:%M %P\"'
 
 
@@ -136,12 +136,12 @@ def load():
     if 'battery' in _config:
         if 'signal_text' in _config['battery']:
             global battery_signal_text
-            battery_signal_text = _config['battery']['signal_text']
+            battery_signal_text = remove_quotes(_config['battery']['signal_text'])
 
     if 'date_time' in _config:
         if 'signal_text' in _config['date_time']:
             global date_time_signal_text
-            date_time_signal_text = _config['battery']['date_time']
+            date_time_signal_text = remove_quotes(_config['battery']['date_time'])
 
         if 'format' in _config['date_time']:
             global date_time_format
