@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "blstatus"
-version = "0.2"
+version = "0.3"
 description = "A status monitor for DWM or other window managers that use WM_NAME"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = {file = "LICENSE"}
 keywords = ["dwm"]
 
