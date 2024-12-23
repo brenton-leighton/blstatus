@@ -1,0 +1,11 @@
+[Unit]
+Description=blstatus
+PartOf=graphical-session.target
+
+[Service]
+Type=exec
+ExecStart=%h/.local/bin/blstatus
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

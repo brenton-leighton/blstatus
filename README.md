@@ -73,3 +73,18 @@ pulse = pulsectl.Pulse()
 print([sink.name for sink in pulse.sink_list()])
 print([source.name for source in pulse.source_list()])
 ```
+
+## Starting with systemd
+
+A systemd service file is included in this repository which can be enabled and started like so:
+
+```bash
+# Copy the service file
+cp blstatus.service ~/.local/share/systemd/user/
+
+# Enable the service
+systemctl --user enable blstatus
+
+# Start the service
+systemctl --user start blstatus
+```
