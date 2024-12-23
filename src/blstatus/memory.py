@@ -1,8 +1,8 @@
 from typing import Callable
 import subprocess
 
-import blstatus.config as config
-import blstatus.inhibit as inhibit
+from . import config
+from . import inhibit
 
 
 def format_mebibyte(value):

@@ -7,14 +7,14 @@ import Xlib.display
 from apscheduler.schedulers.background import BackgroundScheduler
 from pydbus import SystemBus
 
-import blstatus.config as config
-import blstatus.inhibit as inhibit
+from . import config
+from . import inhibit
 
-from blstatus.network import Network
-from blstatus.memory import Memory
-from blstatus.volume import Volume
-from blstatus.battery import Battery
-from blstatus.date_time import DateTime
+from .network import Network
+from .memory import Memory
+from .volume import Volume
+from .battery import Battery
+from .date_time import DateTime
 
 lock = threading.Lock()
 

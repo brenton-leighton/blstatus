@@ -4,8 +4,8 @@ import asyncio
 from contextlib import suppress
 import pulsectl_asyncio
 
-import blstatus.config as config
-import blstatus.inhibit as inhibit
+from . import config
+from . import inhibit
 
 
 def get_abbreviation(name: str) -> str:

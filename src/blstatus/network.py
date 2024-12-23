@@ -2,8 +2,8 @@ from time import sleep
 from typing import Callable
 from pydbus.bus import Bus
 
-import blstatus.config as config
-import blstatus.inhibit as inhibit
+from . import config
+from . import inhibit
 
 NM_DEVICE_TYPE_ETHERNET = 1
 NM_DEVICE_TYPE_WIFI = 2
