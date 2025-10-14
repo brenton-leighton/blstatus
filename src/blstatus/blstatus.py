@@ -13,8 +13,10 @@ from . import inhibit
 from .network import Network
 from .memory import Memory
 from .volume import Volume
+from .power_profile import PowerProfile
 from .battery import Battery
 from .date_time import DateTime
+from .disabled import Disabled
 
 lock = threading.Lock()
 
@@ -24,6 +26,7 @@ root = display.screen().root
 network = None
 memory = None
 volume = None
+power_profile = None
 battery = None
 date_time = None
 
@@ -36,11 +39,11 @@ login1_proxy = None
 
 
 def prepare_for_sleep(sleeping):
-
-    global battery, date_time, network, inhibit, scheduler
+    global battery, date_time, network, inhibit, power_profile, scheduler
 
     if not sleeping:
         # Resuming
+        power_profile.update_text()
         battery.update_text()
         date_time.update_text()
         network.update_proxies_and_text()
@@ -54,7 +57,6 @@ def prepare_for_sleep(sleeping):
 
 
 def publish():
-
     global lock, network, memory, volume, battery, date_time, root, display
 
     """Publish status text to root window name"""
@@ -65,6 +67,7 @@ def publish():
                       f'{memory.gpu_text}' \
                       f'{volume.sink_text}' \
                       f'{volume.source_text}' \
+                      f'{power_profile.text}' \
                       f'{battery.text}' \
                       f'{date_time.text}' \
                       ' '
@@ -75,8 +78,7 @@ def publish():
 
 
 def main():
-
-    global login1_proxy, config, network, memory, volume, battery, date_time, scheduler, loop
+    global login1_proxy, config, network, memory, volume, power_profile, battery, date_time, scheduler, loop
 
     login1_proxy = system_bus.get('org.freedesktop.login1')
     login1_proxy.PrepareForSleep.connect(prepare_for_sleep)
@@ -88,7 +90,17 @@ def main():
     network = Network(system_bus, publish, config.spacer)
     memory = Memory(publish, config.spacer)
     volume = Volume(loop, publish, config.spacer)
-    battery = Battery(system_bus, publish, config.spacer)
+
+    if config.power_profile_enable:
+        power_profile = PowerProfile(system_bus, publish, config.spacer)
+    else:
+        power_profile = Disabled()
+
+    if config.battery_enable:
+        battery = Battery(system_bus, publish, config.spacer)
+    else:
+        battery = Disabled()
+
     date_time = DateTime(publish, ' ')
 
     # Update memory every 2 seconds

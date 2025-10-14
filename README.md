@@ -11,7 +11,7 @@ blstatus has the following dependencies:
 
 - python3-dev
 - libcairo2-dev
-- libgirepository1.0-dev
+- libgirepository2.0-dev
 
 And the following dependencies available on PyPI:
 

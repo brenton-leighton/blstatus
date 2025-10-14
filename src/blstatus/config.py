@@ -44,6 +44,10 @@ volume_source_sink_abbreviations = {
 # Abbreviation to use if a sink/source name suffix isn't found
 volume_source_sink_unknown_abbreviation = 'U'
 
+power_profile_enable = True
+power_profile_signal_text = '\x09'
+
+battery_enable = True
 battery_signal_text = '\x07'
 
 # Format string for the date command
@@ -133,10 +137,21 @@ def load():
             global volume_source_sink_unknown_abbreviation
             volume_source_sink_unknown_abbreviation = remove_quotes(_config['volume']['source_sink_unknown_abbreviation'])
 
+    if 'power_profile' in _config:
+        if 'enable' in _config['power_profile']:
+            global power_profile_enable
+            power_profile_enable = _config['power_profile'].getboolean('enable')
+        if 'signal_text' in _config['power_profile']:
+            global power_profile_signal_text
+            power_profile_signal_text = _config['power_profile']['signal_text']
+
     if 'battery' in _config:
+        if 'enable' in _config['battery']:
+            global battery_enable
+            battery_enable = _config['battery'].getboolean('enable')
         if 'signal_text' in _config['battery']:
             global battery_signal_text
-            battery_signal_text = remove_quotes(_config['battery']['signal_text'])
+            battery_signal_text = _config['battery']['signal_text']
 
     if 'date_time' in _config:
         if 'signal_text' in _config['date_time']:

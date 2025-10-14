@@ -1,5 +1,4 @@
 from typing import Callable
-import subprocess
 from pydbus.bus import Bus
 
 from . import config
@@ -86,7 +85,7 @@ class Battery:
         battery_percent = round(self._device_proxy.Percentage)
 
         # Format status text
-        self.text = f'{self._signal_text}bat {get_state_abbreviation(state)}{str(battery_percent)}%{time}{self._spacer}'
+        self.text = f'{self._signal_text}{get_state_abbreviation(state)}{str(battery_percent)}%{time}{self._spacer}'
 
     def _update_and_publish(self, *params):
         """Callback for the PropertiesChanged signal of the battery device proxy"""
